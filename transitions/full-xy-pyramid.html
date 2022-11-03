@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Transitions</title>
+    <style>
+     html {
+       font-family: sans-serif;
+     }
+
+     .rounded {
+       border-radius: 10%;
+     }
+
+     .parent {
+       background-color: darkblue;
+       height: 200px;
+       width: 200px;
+     }
+
+     .child {
+       background-color: red;
+       height: 50%;
+       width: 50%;
+     }
+
+     .grandchild {
+       background-color: green;
+       height: 50%;
+       width: 50%;
+     }
+
+     .greatgrandchild {
+       background-color: yellow;
+       height: 50%;
+       width: 50%;
+     }
+
+     .parent:hover .child {
+       animation: hit-vertices 4s forwards infinite;
+       /* animation: hit-vertices 2s forwards infinite reverse; */
+     }
+
+     .parent:hover .grandchild {
+       animation: hit-vertices 4s forwards infinite;
+     }
+
+     .parent:hover .greatgrandchild {
+       animation: hit-vertices 4s forwards infinite;
+       /* animation: hit-vertices 2s forwards infinite reverse; */
+     }
+
+     @keyframes hit-vertices {
+       0% {
+         transform: translateX(0);
+       }
+
+       25% {
+         transform: translateY(100%);
+       }
+
+       50% {
+         transform: translateX(100%) translateY(100%);
+       }
+
+       75% {
+         transform: translateX(100%) translateY(0%);
+       }
+
+       100% {
+         transform: translateX(0);
+       }
+     }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="child">
+        <div class="grandchild">
+          <div class="greatgrandchild"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
