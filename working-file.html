@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Transitions</title>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      .rounded {
+        border-radius: 10%;
+      }
+
+      .content {
+        border-color: red;
+        border-width: thick;
+        padding: 50px;
+      }
+
+      .container {
+        margin: 20px auto;
+        width: 400px;
+        height: 400px;
+        background-color: #fff;
+        display: grid;
+        grid-template-columns: 200px 200px;
+        grid-row: auto auto;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+      }
+
+      .container .box {
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        font-family: sans-serif;
+      }
+
+      .parent {
+        background-color: darkblue;
+        height: 150px;
+        width: 150px;
+      }
+
+      .child {
+        background-color: red;
+        height: 50%;
+        width: 50%;
+      }
+
+      .grandchild {
+        background-color: green;
+        height: 50%;
+        width: 50%;
+      }
+
+      .greatgrandchild {
+        background-color: yellow;
+        height: 50%;
+        width: 50%;
+      }
+
+      .in {
+        animation: hit-vertices-reverse 4s ease forwards infinite;
+      }
+
+      .out {
+        animation: hit-vertices 1s ease forwards;
+      }
+
+      .top.right {
+        animation: hit-top-right 1s ease forwards;
+      }
+
+      .bottom.left {
+        animation: hit-bottom-left 1s ease forwards;
+      }
+
+      .bottom.right {
+        animation: hit-bottom-right 1s ease forwards;
+      }
+
+      @keyframes hit-top-right {
+        0% {
+          transform: translateX(0) translateY(0);
+        }
+
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      @keyframes hit-bottom-left {
+        0% {
+          transform: translateX(0) translateY(0);
+        }
+
+        100% {
+          transform: translateY(100%);
+        }
+      }
+
+      @keyframes hit-bottom-right {
+        0% {
+          transform: translateX(0) translateY(0);
+        }
+
+        100% {
+          transform: translateX(100%) translateY(100%);
+        }
+      }
+
+      @keyframes hit-vertices {
+        0% {
+          transform: translateX(0);
+        }
+
+        25% {
+          transform: translateY(100%);
+        }
+
+        50% {
+          transform: translateX(100%) translateY(100%);
+        }
+
+        75% {
+          transform: translateX(100%) translateY(0%);
+        }
+
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes hit-vertices-reverse {
+        100% {
+          transform: translateX(0);
+        }
+
+        75% {
+          transform: translateY(100%);
+        }
+
+        50% {
+          transform: translateX(100%) translateY(100%);
+        }
+
+        25% {
+          transform: translateX(100%) translateY(0%);
+        }
+
+        0% {
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <div
+          id="logo"
+          class="parent"
+          onmouseover="animateIn(this)"
+          onmouseout="animateOut(this)"
+        >
+          <div class="child">
+            <div class="grandchild">
+              <div class="greatgrandchild"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box top-right" onmouseover="animateTopRight()">top-right</div>
+      <div class="box content bottom-left" onmouseover="animateBottomLeft()">
+        bottom-left
+      </div>
+      <div class="box content bottom-right" onmouseover="animateBottomRight()">
+        bottom-right
+      </div>
+    </div>
+    <script defer>
+      // Logo Interactions
+      function animateIn(el) {
+        child = el.children[0];
+        grandchild = child.children[0];
+        greatgrandchild = grandchild.children[0];
+        function tagIn(classList) {
+          return `${clearPlacementClass(classList)} in`;
+        }
+
+        child.className = tagIn(child.className);
+        grandchild.className = tagIn(grandchild.className);
+        greatgrandchild.className = tagIn(greatgrandchild.className);
+      }
+
+      function animateOut(el) {
+        child = el.children[0];
+        grandchild = child.children[0];
+        greatgrandchild = grandchild.children[0];
+
+        function tagOut(classList) {
+          return `${clearPlacementClass(classList)} out`;
+        }
+
+        child.className = tagOut(child.className);
+        grandchild.className = tagOut(grandchild.className);
+        greatgrandchild.className = tagOut(greatgrandchild.className);
+      }
+
+      function clearPlacementClass(classList) {
+        classList = classList.replace("out", "");
+        classList = classList.replace("in", "");
+        classList = classList.replace("bottom", "");
+        classList = classList.replace("left", "");
+        classList = classList.replace("right", "");
+        classList = classList.replace("top", "");
+        return classList;
+      }
+
+      // Section Interactions
+      function animateTopRight() {
+        child = document.getElementById("logo").children[0];
+        grandchild = child.children[0];
+        greatgrandchild = grandchild.children[0];
+
+        function tagTopRight(classList) {
+          return `${clearPlacementClass(classList)} top right`;
+        }
+
+        child.className = tagTopRight(child.className);
+        grandchild.className = tagTopRight(grandchild.className);
+        greatgrandchild.className = tagTopRight(greatgrandchild.className);
+      }
+
+      function animateBottomLeft() {
+        child = document.getElementById("logo").children[0];
+        grandchild = child.children[0];
+        greatgrandchild = grandchild.children[0];
+
+        function tagBottomLeft(classList) {
+          return `${clearPlacementClass(classList)} bottom left`;
+        }
+
+        child.className = tagBottomLeft(child.className);
+        grandchild.className = tagBottomLeft(grandchild.className);
+        greatgrandchild.className = tagBottomLeft(greatgrandchild.className);
+      }
+
+      function animateBottomRight() {
+        child = document.getElementById("logo").children[0];
+        grandchild = child.children[0];
+        greatgrandchild = grandchild.children[0];
+
+        function tagBottomRight(classList) {
+          return `${clearPlacementClass(classList)} bottom right`;
+        }
+
+        child.className = tagBottomRight(child.className);
+        grandchild.className = tagBottomRight(grandchild.className);
+        greatgrandchild.className = tagBottomRight(greatgrandchild.className);
+      }
+    </script>
+  </body>
+</html>
